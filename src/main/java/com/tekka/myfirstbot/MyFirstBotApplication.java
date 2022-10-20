@@ -1,4 +1,4 @@
-package com.example.myfirstbot;
+package com.tekka.myfirstbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,6 @@ public class MyFirstBotApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MyFirstBotApplication.class, args);
-
     }
 
 }

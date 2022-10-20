@@ -1,6 +1,8 @@
-package com.example.myfirstbot.config;
+package com.tekka.myfirstbot.config;
 
-import com.example.myfirstbot.service.TelegramBot;
+import com.tekka.myfirstbot.service.TelegramBot;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -11,7 +13,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Component
 public class BotInitializer {
-
+    private final Logger logger = LoggerFactory.logger(BotInitializer.class);
     @Autowired
     private TelegramBot bot;
 
@@ -22,7 +24,7 @@ public class BotInitializer {
             api.registerBot(bot);
         }
         catch (TelegramApiException e){
-
+            logger.warn("exception during init" + e.getMessage());
         }
     }
 }

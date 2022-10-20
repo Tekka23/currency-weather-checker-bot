@@ -1,19 +1,16 @@
-package com.example.myfirstbot.config;
+package com.tekka.myfirstbot.config.curency;
 
-
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@Data
 @PropertySource("application.properties")
-public class BotConfig {
+public class CurrencyConfig {
+    @Value("${currency.url}")
+    private String CBRUrl;
 
-    @Value("${bot.name}")
-    private String botName;
-    @Value("${bot.token}")
-    private String token;
-
+    public String getCBRUrl() {
+        return CBRUrl;
+    }
 }
