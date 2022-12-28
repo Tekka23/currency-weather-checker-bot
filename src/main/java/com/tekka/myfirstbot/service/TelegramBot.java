@@ -1,6 +1,8 @@
 package com.tekka.myfirstbot.service;
 
 import com.tekka.myfirstbot.config.BotConfig;
+import com.tekka.myfirstbot.service.currency.CurrencyDataService;
+import com.tekka.myfirstbot.service.weather.WeatherDataService;
 import com.vdurmont.emoji.EmojiParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,14 +52,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         long chatId;
         if (update.hasMessage() && update.getMessage().hasText()) {
-            Parser parser = new Parser();
+            BotMessageParser botMessageParser = new BotMessageParser();
             chatId = update.getMessage().getChatId();
-            MessageParser parsedMsg = parser.parseMessage(update.getMessage().getText());
+            MessageItem parsedMsg = botMessageParser.parseMessage(update.getMessage().getText());
             switch (parsedMsg.getCommand()) {
                 case "/start" -> startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                 case "/help" -> sendMessage(chatId, HELP_TEXT);
                 case "/currencyrates" -> sendMessage(chatId,currencyDataService.getMessage());
-                case "/weather" -> sendMessage(chatId, weatherDataService.getWeatherMessage(parsedMsg.getText()));
+                case "/weather", "weather" -> sendMessage(chatId, weatherDataService.getWeatherMessage(parsedMsg.getText()));
                 default -> sendMessage(chatId, "Sorry, command was not recognized");
             }
         }

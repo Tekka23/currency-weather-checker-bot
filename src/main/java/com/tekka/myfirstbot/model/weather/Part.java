@@ -1,8 +1,19 @@
 package com.tekka.myfirstbot.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Objects;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Part {
+
     @JsonProperty(value = "part_name")
     private String partName;
     @JsonProperty(value = "temp_min")
@@ -14,55 +25,15 @@ public class Part {
     @JsonProperty(value = "condition")
     private String condition;
 
-
-    public Part() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Part part)) return false;
+        return minTemp == part.minTemp && avgTemp == part.avgTemp && windSpeed == part.windSpeed && partName.equals(part.partName) && condition.equals(part.condition);
     }
 
-    public Part(String partName, int minTemp, int avgTemp, int windSpeed, String condition) {
-        this.partName = partName;
-        this.minTemp = minTemp;
-        this.avgTemp = avgTemp;
-        this.windSpeed = windSpeed;
-        this.condition = condition;
-    }
-
-    public String getPartName() {
-        return partName;
-    }
-
-    public void setPartName(String partName) {
-        this.partName = partName;
-    }
-
-    public int getMinTemp() {
-        return minTemp;
-    }
-
-    public void setMinTemp(int minTemp) {
-        this.minTemp = minTemp;
-    }
-
-    public int getAvgTemp() {
-        return avgTemp;
-    }
-
-    public void setAvgTemp(int avgTemp) {
-        this.avgTemp = avgTemp;
-    }
-
-    public int getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(int windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
+    @Override
+    public int hashCode() {
+        return Objects.hash(partName, minTemp, avgTemp, windSpeed, condition);
     }
 }

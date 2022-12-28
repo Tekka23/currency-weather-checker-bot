@@ -4,6 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class BotCommandsConfig {
     public static List<BotCommand> createCommands(){
         List<BotCommand> listOfCommands = new ArrayList<>();

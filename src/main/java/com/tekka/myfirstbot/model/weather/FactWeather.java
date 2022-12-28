@@ -2,7 +2,17 @@ package com.tekka.myfirstbot.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Objects;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonRootName(value = "fact")
 public class FactWeather {
     @JsonProperty(value = "temp")
@@ -12,47 +22,17 @@ public class FactWeather {
     @JsonProperty(value = "condition")
     private String condition;
     @JsonProperty(value = "wind_speed")
-    private int windSpeed;
+     int windSpeed;
 
-    public FactWeather(int temperature, int feelsLike, String condition, int windSpeed) {
-        this.temperature = temperature;
-        this.feelsLike = feelsLike;
-        this.condition = condition;
-        this.windSpeed = windSpeed;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FactWeather that)) return false;
+        return temperature == that.temperature && feelsLike == that.feelsLike && windSpeed == that.windSpeed && condition.equals(that.condition);
     }
 
-    public FactWeather() {
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
-    public int getFeelsLike() {
-        return feelsLike;
-    }
-
-    public void setFeelsLike(int feelsLike) {
-        this.feelsLike = feelsLike;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public int getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(int windSpeed) {
-        this.windSpeed = windSpeed;
+    @Override
+    public int hashCode() {
+        return Objects.hash(temperature, feelsLike, condition, windSpeed);
     }
 }

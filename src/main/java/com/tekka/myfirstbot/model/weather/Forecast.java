@@ -1,7 +1,18 @@
 package com.tekka.myfirstbot.model.weather;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Arrays;
+import java.util.Objects;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonRootName(value = "forecast")
 public class Forecast {
     @JsonProperty(value = "sunrise")
@@ -11,36 +22,17 @@ public class Forecast {
     @JsonProperty(value = "parts")
     private Part[] partsOfDay;
 
-    public Forecast() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Forecast forecast)) return false;
+        return sunrise.equals(forecast.sunrise) && sunset.equals(forecast.sunset) && Arrays.equals(partsOfDay, forecast.partsOfDay);
     }
 
-    public Forecast(String sunrise, String sunset, Part[] partsOfDay) {
-        this.sunrise = sunrise;
-        this.sunset = sunset;
-        this.partsOfDay = partsOfDay;
-    }
-
-    public String getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(String sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public String getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(String sunset) {
-        this.sunset = sunset;
-    }
-
-    public Part[] getPartsOfDay() {
-        return partsOfDay;
-    }
-
-    public void setPartsOfDay(Part[] partsOfDay) {
-        this.partsOfDay = partsOfDay;
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(sunrise, sunset);
+        result = 31 * result + Arrays.hashCode(partsOfDay);
+        return result;
     }
 }

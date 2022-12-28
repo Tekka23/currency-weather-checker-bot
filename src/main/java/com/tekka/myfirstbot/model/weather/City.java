@@ -1,5 +1,16 @@
 package com.tekka.myfirstbot.model.weather;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Objects;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class City {
    private String name;
    private double latitude;
@@ -7,53 +18,15 @@ public class City {
    private String country;
    private String state;
 
-    public City() {
-    }
-    public City(String name, double latitude, double longitude, String country, String state) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.country = country;
-        this.state = state;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof City city)) return false;
+        return Double.compare(city.latitude, latitude) == 0 && Double.compare(city.longitude, longitude) == 0 && name.equals(city.name) && country.equals(city.country) && state.equals(city.state);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, latitude, longitude, country, state);
     }
 }
