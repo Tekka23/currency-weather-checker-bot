@@ -79,7 +79,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         catch (TelegramApiException e){
             logger.warn("Executing task " + e.getMessage());
         }
-        }
+    }
 
     @Override
     public String getBotUsername() {
